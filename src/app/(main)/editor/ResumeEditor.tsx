@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import GeneralInfoForm from "./forms/GeneralInfoForm";
+import PersonalInfoForm from "./forms/PersonalInfoForm";
 
 export default function ResumeEditor() {
   return (
@@ -18,7 +19,7 @@ export default function ResumeEditor() {
         <div className="absolute botton-0 top-0 flex w-full">
           {/* form elements go to left */}
           <div className="w-full p-3 md:w-1/2">
-          <GeneralInfoForm />
+          <PersonalInfoForm />
             </div>
           <div className="grow md:border-r" />
           {/* resume preview goes to right */}

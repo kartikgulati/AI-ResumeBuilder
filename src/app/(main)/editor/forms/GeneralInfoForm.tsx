@@ -1,7 +1,7 @@
 import { generalInfoSchema, generalInfoValues } from "@/lib/validaton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl,FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 export default function GeneralInfoForm() {
@@ -36,8 +36,26 @@ export default function GeneralInfoForm() {
               </FormItem>
             )}
           />
+
+<FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Description" autoFocus />
+                </FormControl>
+                <FormDescription>
+                Describe of the resume you are working on.
+                </FormDescription>
+              </FormItem>
+            )}
+          />
         </form>
       </Form>
     </div>
   );
 }
+
+
