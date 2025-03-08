@@ -17,7 +17,7 @@ export const personalInfoSchema = z.object({
         "Please upload a valid image file"
     )
 
-    .refine(file =>!file || file.size <=1024*1024*4,"File size must be less than 4MB",),
+    .refine(file =>!file || file.size <=1024*1024*4,"File size must be less then 4 MB",),
     firstName: optionalString,
     lastName: optionalString,
     email: optionalString,

@@ -18,10 +18,12 @@ export default function ResumeEditor() {
       <main className="relative grow">
         <div className="absolute botton-0 top-0 flex w-full">
           {/* form elements go to left */}
-          <div className="w-full p-3 md:w-1/2">
+          <div className="w-full p-3 md:w-1/2 overflow-y-auto">
           <PersonalInfoForm />
             </div>
+
           <div className="grow md:border-r" />
+          
           {/* resume preview goes to right */}
           <div className="hidden w-1/2 md:flex">right</div>
         </div>
