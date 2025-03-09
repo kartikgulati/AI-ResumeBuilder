@@ -4,8 +4,32 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import GeneralInfoForm from "./forms/GeneralInfoForm";
 import PersonalInfoForm from "./forms/PersonalInfoForm";
+import { useSearchParams } from "next/navigation";
+import { steps } from "./steps";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import Breadcrumbs from "./Breadcrumbs";
+import Footer from "./Footer";
+import { resumeValues } from "@/lib/validaton";
+import { useState } from "react";
 
 export default function ResumeEditor() {
+
+  const searchParams = useSearchParams();
+
+  const [resumeData, setResumeData] = useState<ResumeValues>({})
+
+  const currentStep = searchParams.get("step") || steps[0].key;
+
+  function setStep(key: string) {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("step", key);
+    window.history.pushState({}, "", `?${newSearchParams.toString()}`);
+    
+  }
+
+  const FormComponent = steps.find((step) => step.key === currentStep)?.component;
+
+
   return (
     <div className=" flex grow flex-col">
       <header className="space-y-1.5 border-b px-3 py-5 text-center">
@@ -19,7 +43,8 @@ export default function ResumeEditor() {
         <div className="absolute botton-0 top-0 flex w-full">
           {/* form elements go to left */}
           <div className="w-full p-3 md:w-1/2 overflow-y-auto">
-          <PersonalInfoForm />
+          <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep} />
+          {FormComponent && <FormComponent />}
             </div>
 
           <div className="grow md:border-r" />
@@ -28,20 +53,8 @@ export default function ResumeEditor() {
           <div className="hidden w-1/2 md:flex">right</div>
         </div>
       </main>
-      <footer className="w-full border-t px-3 py-5">
-        <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
-          <div className="flex gap-3 items-center">
-            <Button variant="secondary">Previous Step</Button>
-            <Button>Next Step</Button>
-          </div>
-          <div className="flex gap-3 items-center">
-            <Button variant="secondary" asChild>
-              <Link href="/resumes"> Close</Link>
-            </Button>
-            <p className="text-muted-foreground">...Saving</p>
-          </div>
-        </div>
-      </footer>
+      <Footer currentStep={currentStep} setCurrentStep={setStep}/>
     </div>
   );
 }
+

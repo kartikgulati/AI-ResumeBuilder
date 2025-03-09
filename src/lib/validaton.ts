@@ -23,7 +23,17 @@ export const personalInfoSchema = z.object({
     email: optionalString,
     phone: optionalString,
     city: optionalString,
+    country: optionalString,
     jobTitle: optionalString,
 });
 
 export type personalInfoValues = z.infer<typeof personalInfoSchema>;
+
+export defaulf resumeSchema = z.object({
+    ...generalInfoSchema.shape,
+    ...personalInfoSchema.shape,
+})
+export type resumeValues = Omit<z.infer<typeof resumeSchema>,"photo">&{
+    id?: string;
+    phoyo?: File | string|null;
+}
