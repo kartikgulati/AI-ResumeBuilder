@@ -3,15 +3,26 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormLabel, FormControl,FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useEffect } from "react";
 
-export default function GeneralInfoForm() {
+export default function GeneralInfoForm({resumeData, setResumeData}: EditorFormProps) {
   const form = useForm<generalInfoValues>({
     resolver: zodResolver(generalInfoSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: resumeData.title || "",
+      description: resumeData.description || "",
     },
   });
+
+    useEffect(() => {
+          const { unsubscribe } = form.watch(async (values) => {
+              const isValid = await form.trigger();
+              if (!isValid) return;
+              setResumeData({...resumeData, ...values});
+          });
+  
+          return () => unsubscribe();
+      },[form, resumeData, setResumeData]);
 
   return (
     <div className="max-w-xl mx-auto space-y-6">

@@ -9,7 +9,7 @@ import { steps } from "./steps";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import Breadcrumbs from "./Breadcrumbs";
 import Footer from "./Footer";
-import { resumeValues } from "@/lib/validaton";
+import { ResumeValues } from "@/lib/validaton";
 import { useState } from "react";
 
 export default function ResumeEditor() {
@@ -44,13 +44,18 @@ export default function ResumeEditor() {
           {/* form elements go to left */}
           <div className="w-full p-3 md:w-1/2 overflow-y-auto">
           <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep} />
-          {FormComponent && <FormComponent />}
+          {FormComponent && <FormComponent 
+          resumeData={resumeData}
+          setResumeData={setResumeData}
+          />}
             </div>
 
           <div className="grow md:border-r" />
           
           {/* resume preview goes to right */}
-          <div className="hidden w-1/2 md:flex">right</div>
+          <div className="hidden w-1/2 md:flex">
+          <pre>{JSON.stringify(resumeData, null, 2)}</pre>
+          </div>
         </div>
       </main>
       <Footer currentStep={currentStep} setCurrentStep={setStep}/>

@@ -4,33 +4,36 @@ import { personalInfoSchema, personalInfoValues } from "@/lib/validaton";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
+import { EditorFormProps } from "@/lib/types";
+import { resumeValues } from "@/lib/validaton";
 
 
 
 
-export default function PersonalInfoForm() {
+export default function PersonalInfoForm({ resumeData, setResumeData }: EditorFormProps) {
     const form = useForm<personalInfoValues>({
         resolver: zodResolver(personalInfoSchema),
         defaultValues: {
-            photo: undefined,
-            firstName: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            city: "",
-            jobTitle: "",
+           
+            firstName: resumeData.firstName || "",
+            lastName: resumeData.lastName || "",
+            email: resumeData.email || "",
+            phone: resumeData.phone || "",
+            city: resumeData.city || "",
+            country: resumeData.country || "",
+            jobTitle: resumeData.jobTitle || "",
         }
     });
 
     useEffect(() => {
-        const { unsubscribe } = form.watch(async () => {
+        const { unsubscribe } = form.watch(async (values) => {
             const isValid = await form.trigger();
             if (!isValid) return;
-            
+            setResumeData({...resumeData, ...values});
         });
 
         return () => unsubscribe();
-    },[form])
+    },[form, resumeData, setResumeData]);
 
     return <div className="mx-auto max-w-xl ">
         <div className="space-y-1.5 text-center">
