@@ -29,7 +29,7 @@ export const personalInfoSchema = z.object({
 
 export type personalInfoValues = z.infer<typeof personalInfoSchema>;
 
-export defaulf resumeSchema = z.object({
+export default resumeSchema = z.object({
     ...generalInfoSchema.shape,
     ...personalInfoSchema.shape,
 })
