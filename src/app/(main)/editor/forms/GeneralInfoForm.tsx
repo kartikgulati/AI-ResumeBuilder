@@ -50,7 +50,7 @@ export default function GeneralInfoForm({resumeData, setResumeData}: EditorFormP
 
 <FormField
             control={form.control}
-            name="title"
+            name="description"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Description</FormLabel>

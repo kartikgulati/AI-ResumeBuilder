@@ -29,9 +29,24 @@ export const personalInfoSchema = z.object({
 
 export type personalInfoValues = z.infer<typeof personalInfoSchema>;
 
+export const workExperienceSchema = z.object({
+    workExperiences:z.array(z.object({
+        company:optionalString,
+        position:optionalString,
+        startDate:optionalString,
+        endDate:optionalString,
+        description:optionalString
+    }),).optional(),
+        
+});
+
+export type workExperienceValues = z.infer<typeof workExperienceSchema>;
+
+
 const resumeSchema = z.object({
     ...generalInfoSchema.shape,
     ...personalInfoSchema.shape,
+    ...workExperienceSchema.shape,
 });
 
 export default resumeSchema;

@@ -33,5 +33,29 @@ model Resume {
   country     String?
   city        String?
 
+
+  workExperiences WorkExperience[] //this is the list of work experiences that belong to the resume
+  createdAt       DateTime @default(now()) //this is the date the resume was created
+  updatedAt       DateTime @default(now()) //this is the date the resume was last updated
+
   @@map("resumes")
+}
+
+model WorkExperience {
+  id        String @id @default(cuid())//this gives a unique id to each work experience in the database
+  resumeId  String //this is the id of the resume that the work experience belongs to
+
+  position       String? //this is the title of the work experience
+  company     String? //this is the company of the work experience
+  startDate   DateTime? //this is the start date of the work experience
+  endDate     DateTime? //this is the end date of the work experience
+  description String? //this is the description of the work experience
+
+  resumeID  String
+  resume Resume @relation(fields: [resumeID], references: [id])
+
+  createdAt       DateTime @default(now()) //this is the date the resume was created
+  updatedAt       DateTime @default(now()) //this is the date the resume was last updated
+
+  @@map("work_experiences")
 }
