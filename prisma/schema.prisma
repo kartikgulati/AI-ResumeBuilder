@@ -35,6 +35,8 @@ model Resume {
 
 
   workExperiences WorkExperience[] //this is the list of work experiences that belong to the resume
+  educations      Education[] //this is the list of educations that belong to the resume
+
   createdAt       DateTime @default(now()) //this is the date the resume was created
   updatedAt       DateTime @default(now()) //this is the date the resume was last updated
 
@@ -58,4 +60,21 @@ model WorkExperience {
   updatedAt       DateTime @default(now()) //this is the date the resume was last updated
 
   @@map("work_experiences")
+}
+
+model Education {
+  id String @id @default(cuid()) //this gives a unique id to each education in the database
+
+  degree       String? //this is the degree of the education
+  school     String? //this is the school of the education
+  startDate   DateTime? //this is the start date of the education
+  endDate     DateTime? //this is the end date of the education
+
+  resumeID  String
+  resume Resume @relation(fields: [resumeID], references: [id])
+
+  createdAt       DateTime @default(now()) //this is the date the resume was created
+  updatedAt       DateTime @default(now()) //this is the date the resume was last updated
+
+  @@map("educations")
 }

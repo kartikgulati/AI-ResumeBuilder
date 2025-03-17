@@ -43,14 +43,12 @@ export default function WorkExperienceForm({
     return () => unsubscribe();
   }, [form, resumeData, setResumeData]);
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "workExperiences",
   });
 
-  function remove(index: number): void {
-    throw new Error("Function not implemented.");
-  }
+
 
   return (
     <div className="max-w-xl mx-auto space-y-6">
@@ -99,8 +97,8 @@ interface WorkExperienceItemProps {
   index: number;
   remove: (index: number) => void;
 
-
 }
+
 
 function WorkExperienceItem({form, index, remove}: WorkExperienceItemProps) {
   return <div className="space-y-3 border rounded-md bg-background p-3">
