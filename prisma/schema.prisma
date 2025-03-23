@@ -36,6 +36,7 @@ model Resume {
 
   workExperiences WorkExperience[] //this is the list of work experiences that belong to the resume
   educations      Education[] //this is the list of educations that belong to the resume
+  skills          String[] //this is the list of skills that belong to the resume
 
   createdAt       DateTime @default(now()) //this is the date the resume was created
   updatedAt       DateTime @default(now()) //this is the date the resume was last updated
