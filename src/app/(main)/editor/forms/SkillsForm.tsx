@@ -12,6 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -55,6 +56,29 @@ export default function SkillsForm({
             Add your skills.
           </p>
         </div>
+        <Form {...form}>
+          <form className="space-y-3">
+            <FormField
+              control={form.control}
+              name="skills"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="sr-only">Your Skills</FormLabel>
+                  <FormControl>
+                   <Textarea {...field}
+                   placeholder="Nextjs, ReactJS, TailwindCSS....."
+                   onChange={(e) => field.onChange(e.target.value.split(",")
+                   )} />
+                  </FormControl>
+                  <FormDescription>
+                    Sperate your skills with a comma.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+          </Form>
         </div>
     );
   }
