@@ -59,7 +59,7 @@ export const skillsSchema = z.object({
     skills: z.array(z.string().trim()).optional(),
 });
 
-export type skillsValues = z.infer<typeof skillsSchema>;
+export type SkillsValues = z.infer<typeof skillsSchema>;
 
 
 const resumeSchema = z.object({
