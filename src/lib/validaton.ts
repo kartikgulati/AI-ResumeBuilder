@@ -62,12 +62,19 @@ export const skillsSchema = z.object({
 export type SkillsValues = z.infer<typeof skillsSchema>;
 
 
+export const summarySchema = z.object({
+    summary: optionalString,
+})
+
+export type summaryValues = z.infer<typeof summarySchema>;
+
 const resumeSchema = z.object({
     ...generalInfoSchema.shape,
     ...personalInfoSchema.shape,
     ...workExperienceSchema.shape,
     ...educationSchema.shape,
     ...skillsSchema.shape,
+    ...summarySchema.shape,
 });
 
 export default resumeSchema;
