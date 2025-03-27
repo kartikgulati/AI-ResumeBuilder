@@ -78,7 +78,7 @@ const resumeSchema = z.object({
 });
 
 export default resumeSchema;
-export type resumeValues = Omit<z.infer<typeof resumeSchema>,"photo">&{
+export type ResumeValues = Omit<z.infer<typeof resumeSchema>,"photo">&{
     id?: string;
     phoyo?: File | string|null;
 }
