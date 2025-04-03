@@ -31,8 +31,8 @@ export type personalInfoValues = z.infer<typeof personalInfoSchema>;
 
 export const workExperienceSchema = z.object({
     workExperiences:z.array(z.object({
-        company:optionalString,
         position:optionalString,
+        company:optionalString,
         startDate:optionalString,
         endDate:optionalString,
         description:optionalString
