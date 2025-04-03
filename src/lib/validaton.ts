@@ -29,6 +29,9 @@ export const personalInfoSchema = z.object({
 
 export type personalInfoValues = z.infer<typeof personalInfoSchema>;
 
+
+// 
+
 export const workExperienceSchema = z.object({
     workExperiences:z.array(z.object({
         position:optionalString,
@@ -41,6 +44,12 @@ export const workExperienceSchema = z.object({
 });
 
 export type workExperienceValues = z.infer<typeof workExperienceSchema>;
+
+export type WorkExperience = NonNullable<
+  z.infer<typeof workExperienceSchema>["workExperiences"]
+>[number];
+
+// 
 
 
 export const educationSchema = z.object({
