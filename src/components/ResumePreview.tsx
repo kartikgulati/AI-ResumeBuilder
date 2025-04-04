@@ -2,7 +2,12 @@ import useDimension from "@/hooks/useDimension";
 import { cn } from "@/lib/utils";
 
 import { ResumeValues } from "@/lib/validaton";
+import { Space_Mono } from "next/font/google";
+import { format } from "path";
 import React, { useEffect, useState } from "react";
+import { formatDate } from "date-fns";
+import exp from "constants";
+import { Badge } from "@/components/ui/badge";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -33,6 +38,8 @@ export default function ResumePreview({
             <PersonalInfoHeader resumeData={resumeData} />
             <SummarySection resumeData={resumeData} />
             <WorkExperienceSection resumeData={resumeData} />
+            <EducationSection resumeData={resumeData} />
+            <SkillsSection resumeData={resumeData} />
       </div>
     </div>
   );
@@ -42,7 +49,7 @@ interface ResumePreviewSectionProps {
   resumeData: ResumeValues;}
 
   function PersonalInfoHeader({resumeData}: ResumePreviewSectionProps) {
-    const {photo, firstName, lastName, email, phone, city, country, jobTitle}= resumeData;
+    const {photo, firstName, lastName, email, phone, city, country, jobTitle, colorHex, borderStyle}= resumeData;
 
     const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -69,7 +76,11 @@ interface ResumePreviewSectionProps {
 
         <div className="space-y-2.5">
             <div className="space-y-1">
-                <p className="text-2xl font-bold">
+                <p className="text-2xl font-bold" 
+                style={{
+                    color: colorHex
+                   
+                }}> 
                     {firstName} {lastName}
                 </p>
                 <p className="font-medium">{jobTitle}</p>
@@ -102,19 +113,104 @@ function SummarySection({resumeData}: ResumePreviewSectionProps) {
 }
 
 function WorkExperienceSection ({resumeData}: ResumePreviewSectionProps) {
-  const {workExperiences} = resumeData;
-   if (!workExperiences) return null;
+  
+  const {workExperiences} = resumeData
+  if (!workExperiences?.length) return null;
+   
 
    return(
     <>
    <hr className="border-2"/>
    <div className="space-y-3 break-inside-avoid">
-    <p className="text-lg font-semibold">Profesional profile</p>
-    <div className="whitespace-pre-line text-sm">{workExperiences}</div>
+    <p className="text-lg font-semibold">Work Experience</p>
+    <div className="space-y-3">
+      {workExperiences.map((experience, index) => (
+        <div key={index} className="break-inside-avoid space-y-1">
+          <div className="flex items-center justify-between text-sm font-semibold ">
+            <span>{experience.position}</span>
+            {experience.startDate && (
+              <span>
+                {formatDate(experience.startDate, "MMMM yyyy")} -{" "}
+                {experience.endDate ? formatDate(experience.endDate, "MMMM yyyy") : "Present"}
+              </span>
+            )}
+
+          </div>
+          <p className="text-xs font-semibold">{experience.company}</p>
+          <div className="whitespace-pre-line text-xs">
+            {experience.description}  
+          </div>
+        </div>
+      ))}
+    </div>
 
    </div>
    </>
     );
+}
+
+
+function EducationSection({ resumeData }: ResumePreviewSectionProps) {
+  const { educations } = resumeData;
+    const educationsNotEmpty = educations?.filter(
+    (edu) => Object.values(edu).filter(Boolean).length > 0
+  )
+  if (!educationsNotEmpty?.length) return null;
+
+  return(
+    <>
+   <hr className="border-2"/>
+   <div className="space-y-3 break-inside-avoid">
+    <p className="text-lg font-semibold">Education</p>
+    <div className="space-y-3">
+      {educations.map((edu, index) => (
+        <div key={index} className="break-inside-avoid space-y-1">
+          <div className="flex items-center justify-between text-sm font-semibold ">
+            <span>{edu.degree}</span>
+            {edu.startDate && (
+              <span>
+                {edu.startDate &&
+                `${formatDate(edu.startDate, "MMMM yyyy")} ${edu.endDate ? ` - ${formatDate(edu.endDate, "MMMM yyyy")}` : ""}`}
+
+
+                
+              </span>
+            )}
+
+          </div>
+          <p className="text-xs font-semibold">{edu.school}</p>
+          
+        </div>
+      ))}
+    </div>
+
+   </div>
+   </>
+    );
+
+}
+
+function SkillsSection({ resumeData }: ResumePreviewSectionProps) {
+  const { skills } = resumeData;
+  if (!skills?.length) return null;
+
+  return (
+    <>
+    <hr className="border-2"/>
+    <div className="space-y-3 break-inside-avoid">
+      <p className="text-lg font-semibold">Skills</p>
+      <div className="flex flex-wrap gap-2 break-inside-avoid">
+        {skills.map((skill, index) => (
+          <Badge key={index} className="bg-black text-white rounded-md">
+            {skill}
+          </Badge>
+          
+        ))}
+      </div>
+    </div>
+    </>
+  )
+
 }
 
 // function WorkExperienceSection({ resumeData }: ResumePreviewSectionProps) {
