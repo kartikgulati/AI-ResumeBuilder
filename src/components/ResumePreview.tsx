@@ -224,7 +224,7 @@ function EducationSection({ resumeData }: ResumePreviewSectionProps) {
 }
 
 function SkillsSection({ resumeData }: ResumePreviewSectionProps) {
-  const { skills, colorHex } = resumeData;
+  const { skills, colorHex, borderStyle } = resumeData;
   if (!skills?.length) return null;
 
   return (
@@ -241,7 +241,13 @@ function SkillsSection({ resumeData }: ResumePreviewSectionProps) {
       <div className="flex flex-wrap gap-2 break-inside-avoid">
         {skills.map((skill, index) => (
           <Badge key={index} className="bg-black text-white rounded-md" style={{
-            backgroundColor: colorHex
+            backgroundColor: colorHex,
+              borderRadius: 
+              borderStyle === BorderStyles.SQUARE 
+              ? "0px" 
+              : borderStyle === BorderStyles.CIRCLE
+              ? "9999px"
+              : "8px",
            
         }}>
             {skill}

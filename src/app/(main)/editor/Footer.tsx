@@ -6,11 +6,13 @@ import next from "next";
 interface FooterProps {
     currentStep: string;
     setCurrentStep: (step: string) => void;
+    showSmResumePreview: boolean;
+    setShowSmResumePreview: (show: boolean) => void;
 }
 
 
 
-export default function Footer({ currentStep, setCurrentStep }: FooterProps) {
+export default function Footer({ currentStep, setCurrentStep,showSmResumePreview, setShowSmResumePreview }: FooterProps) {
     const previousStep = steps.find(
         (_, index) => steps[index + 1]?.key === currentStep
     )?.key;
@@ -28,6 +30,15 @@ export default function Footer({ currentStep, setCurrentStep }: FooterProps) {
         <Button 
         onClick={nextStep ? () => setCurrentStep(nextStep): undefined}
         disabled={!nextStep}>Next Step</Button>
+
+        <Button 
+        variant="outline"
+        
+        onClick={() => setShowSmResumePreview(!showSmResumePreview)}
+        className="md:hidden"
+        title={showSmResumePreview ? "Input Form " : "Resume Preview"}
+        >Preview</Button>
+
       </div>
       <div className="flex gap-3 items-center">
         <Button variant="secondary" asChild>
@@ -39,3 +50,4 @@ export default function Footer({ currentStep, setCurrentStep }: FooterProps) {
   </footer>
   </div>
 }
+

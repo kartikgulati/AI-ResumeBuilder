@@ -12,12 +12,15 @@ import Footer from "./Footer";
 import { ResumeValues } from "@/lib/validaton";
 import { useState } from "react";
 import ResumePreviewSection from "./ResumePreviewSection";
+import { cn } from "@/lib/utils";
 
 export default function ResumeEditor() {
 
   const searchParams = useSearchParams();
 
   const [resumeData, setResumeData] = useState<ResumeValues>({})
+
+  const [showSmResumePreview, setShowSmResumePreview] = useState(false);
 
   const currentStep = searchParams.get("step") || steps[0].key;
 
@@ -32,7 +35,7 @@ export default function ResumeEditor() {
 
 
   return (
-    <div className=" flex grow flex-col">
+    <div className="  flex grow flex-col">
       <header className="space-y-1.5 border-b px-3 py-5 text-center">
         <h1 className=" text-2xl font-bold">Design your dream resume</h1>
         <p className="test-sm text-muted-foreground">
@@ -41,9 +44,9 @@ export default function ResumeEditor() {
         </p>
       </header>
       <main className="relative grow">
-        <div className="absolute botton-0 top-0 flex w-full">
+        <div className=" botton-0 top-0 flex w-full">
           {/* form elements go to left */}
-          <div className="w-full p-3 md:w-1/2 overflow-y-auto">
+          <div className={cn("w-full p-3 md:w-1/2 overflow-y-auto md:block", showSmResumePreview && "hidden ")}>
           <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep} />
           {FormComponent && <FormComponent 
           resumeData={resumeData}
@@ -51,18 +54,20 @@ export default function ResumeEditor() {
           />}
             </div>
 
-          <div className="grow md:border-r" />
+          <div className=" grow md:border-r" />
           
           {/* resume preview goes to right */}
           
           <ResumePreviewSection
           resumeData={resumeData}
           setResumeData={setResumeData}
+          className={cn(showSmResumePreview && "flex")}
           />
           
         </div>
       </main>
-      <Footer currentStep={currentStep} setCurrentStep={setStep}/>
+      <Footer currentStep={currentStep} setCurrentStep={setStep}
+      showSmResumePreview={showSmResumePreview} setShowSmResumePreview={setShowSmResumePreview} />
     </div>
   );
 }
