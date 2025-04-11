@@ -13,6 +13,8 @@ import { ResumeValues } from "@/lib/validaton";
 import { useState } from "react";
 import ResumePreviewSection from "./ResumePreviewSection";
 import { cn } from "@/lib/utils";
+import useUnloadWarning from "@/hooks/useUnloadWarning";
+import useAutoSaveResume from "./useAutoSaveResume";
 
 export default function ResumeEditor() {
 
@@ -21,6 +23,10 @@ export default function ResumeEditor() {
   const [resumeData, setResumeData] = useState<ResumeValues>({})
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
+
+  const {isSaving, hasUnsavedChanges} = useAutoSaveResume(resumeData);
+
+  useUnloadWarning(hasUnsavedChanges);
 
   const currentStep = searchParams.get("step") || steps[0].key;
 
@@ -32,6 +38,9 @@ export default function ResumeEditor() {
   }
 
   const FormComponent = steps.find((step) => step.key === currentStep)?.component;
+
+  // useUnloadWarning();
+
 
 
   return (
@@ -67,7 +76,9 @@ export default function ResumeEditor() {
         </div>
       </main>
       <Footer currentStep={currentStep} setCurrentStep={setStep}
-      showSmResumePreview={showSmResumePreview} setShowSmResumePreview={setShowSmResumePreview} />
+      showSmResumePreview={showSmResumePreview} setShowSmResumePreview={setShowSmResumePreview} 
+      isSaving={isSaving}
+      />
     </div>
   );
 }
