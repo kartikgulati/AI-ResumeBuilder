@@ -24,7 +24,7 @@ export default function ResumeEditor() {
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
 
-  const {isSaving, hasUnsavedChanges} = useAutoSaveResume(resumeData);
+  const {isSaving, hasUnsavedChanges} = useAutoSaveResume(resumeData, setResumeData);
 
   useUnloadWarning(hasUnsavedChanges);
 
