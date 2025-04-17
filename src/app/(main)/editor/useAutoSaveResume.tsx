@@ -39,9 +39,9 @@ export default function useAutoSaveResume(
         const newData = structuredClone(debouncedValue);
         const updatedResume = await saveResume({
           ...newData,
-        //   ...(JSON.stringify(lastSavedData.photo, fileReplacer) === JSON.stringify(newData.photo, fileReplacer) && {
-        //     photo: undefined,
-        //   }),
+          ...(JSON.stringify(lastSavedData.photo, fileReplacer) === JSON.stringify(newData.photo, fileReplacer) && {
+            photo: undefined,
+          }),
           id: resumeId,
         });
 
@@ -87,33 +87,33 @@ export default function useAutoSaveResume(
     console.log("debouncedResumedata", JSON.stringify(debouncedValue, fileReplacer));
     console.log("lastSavedData", JSON.stringify(lastSavedData, fileReplacer));
 
-//     const hasUnsavedChanges =
-//       JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer);
+    const hasUnsavedChanges =
+      JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer);
 
-//     if (hasUnsavedChanges && debouncedValue && !isSaving && !isError) {
-//       save();
-//     }
-//   }, [debouncedValue, isSaving, lastSavedData, isError, searchParam, toast]);
-//   return {
-//     isSaving,
-//     hasUnsavedChanges:
-//       JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer),
-//   };
+    if (hasUnsavedChanges && debouncedValue && !isSaving && !isError) {
+      save();
+    }
+  }, [debouncedValue, isSaving, lastSavedData, isError, searchParam, toast]);
+  return {
+    isSaving,
+    hasUnsavedChanges:
+      JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer),
+  };
+}
+
+// const hasUnsavedChanges =
+// JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer) ||
+// debouncedValue.photo instanceof File;
+
+// if (hasUnsavedChanges && debouncedValue && !isSaving && !isError) {
+// save();
 // }
+// }, [debouncedValue, isSaving, isError, searchParam, toast]);
 
-const hasUnsavedChanges =
-JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer) ||
-debouncedValue.photo instanceof File;
-
-if (hasUnsavedChanges && debouncedValue && !isSaving && !isError) {
-save();
-}
-}, [debouncedValue, isSaving, isError, searchParam, toast]);
-
-return {
-isSaving,
-hasUnsavedChanges:
-JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer) ||
-resumeData.photo instanceof File
-};
-}
+// return {
+// isSaving,
+// hasUnsavedChanges:
+// JSON.stringify(debouncedValue, fileReplacer) !== JSON.stringify(lastSavedData, fileReplacer) ||
+// resumeData.photo instanceof File
+// };
+// }
