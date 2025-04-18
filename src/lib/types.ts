@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { ResumeValues } from './validation';
+import { ResumeValues } from './validaton';
 
 export interface EditorFormProps {
     resumeData: ResumeValues;
