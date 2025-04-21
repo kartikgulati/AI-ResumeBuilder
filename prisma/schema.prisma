@@ -46,7 +46,6 @@ model Resume {
 
 model WorkExperience {
   id        String @id @default(cuid())//this gives a unique id to each work experience in the database
-  resumeId  String //this is the id of the resume that the work experience belongs to
 
   position       String? //this is the title of the work experience
   company     String? //this is the company of the work experience

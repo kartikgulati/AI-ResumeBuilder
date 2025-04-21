@@ -18,6 +18,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { GripHorizontal } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import GenerateSummaryButton from "./GenerateSummaryButton";
+import { Sumana } from "next/font/google";
+import { sign } from "crypto";
 
 export default function SummaryForm({resumeData,setResumeData}: EditorFormProps){
   const form = useForm<summaryValues>({
@@ -65,6 +68,9 @@ export default function SummaryForm({resumeData,setResumeData}: EditorFormProps)
                     Enter a brief summary about yourself.
                   </FormDescription>
                   <FormMessage />
+                  <GenerateSummaryButton
+                  resumeData={resumeData}
+                  onSummaryGenerated={(summary) => form.setValue("summary",summary)}/>
                 </FormItem>
               )}
             />
