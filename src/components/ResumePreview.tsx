@@ -197,7 +197,7 @@ function EducationSection({ resumeData }: ResumePreviewSectionProps) {
                    
                 }}>Education</p>
     <div className="space-y-3">
-      {educations.map((edu, index) => (
+      {educations?.map((edu, index) => (
         <div key={index} className="break-inside-avoid space-y-1">
           <div className="flex items-center justify-between text-sm font-semibold ">
             <span>{edu.degree}</span>

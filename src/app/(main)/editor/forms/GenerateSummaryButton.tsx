@@ -39,6 +39,6 @@ export default function GenerateSummaryButton({resumeData, onSummaryGenerated}: 
     onClick={handleCLick}
     loading={loading}
     >
-        <WandSparklesIcon className="size-5" />Generate (AI)  
+        <WandSparklesIcon className="size-5" />Generate AI Summary 
     </LoadingButton>
 }

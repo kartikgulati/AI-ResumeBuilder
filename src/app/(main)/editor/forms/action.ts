@@ -1,6 +1,6 @@
 "use server"
 
-import { GenerateSummaryInput } from "@/lib/validaton";
+import { GenerateSummaryInput, GenerateWorkExperienceInput, generateWorkExperienceSchema, WorkExperience } from "@/lib/validaton";
 import openai, { OpenAI } from "openai";
 
 export async function generateSummary(input: GenerateSummaryInput){
@@ -35,7 +35,7 @@ console.log("User userMessage:", userMessage);
 const client = new OpenAI();
 
 const completion = await client.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: "gpt-4.1-nano",
     messages: [
         { role: "system", content: systemMessage },
         { role: "user", content: userMessage },
@@ -49,4 +49,47 @@ if (!aiResponse) {
 }
 return aiResponse;
 
+}
+
+
+export async function generateWorkExperience (input: GenerateWorkExperienceInput){
+const {description} = generateWorkExperienceSchema.parse(input);
+const systemMessage =`
+you are a resume builder AI. Your task is to generate a work experience entry and description based on the user's input.
+your response should include the following structure and format and remove information if they cannot be found in the user's input.
+
+Job Tiitle: [Job Title]
+Company: [Company Name]
+Start Date: [format: YYYY-MM-DD](only if available)
+End Date: [format: YYYY-MM-DD](only if available)
+Description: [Generate an optimized description based on the user's input. The description should be concise and highlight the user's key qualifications and experiences. Make it professional and concise. And it must be in a bullet point format. The description should be 2-3 sentences lond and shoukd be highlight the user's achievements.]
+`
+
+const userMessage=`Please generate a work experience entry based on the following information:${description}`
+
+
+const client = new OpenAI();
+
+const completion = await client.chat.completions.create({
+    model: "gpt-4.1-nano",
+    messages: [
+        { role: "system", content: systemMessage },
+        { role: "user", content: userMessage },
+    ]
+});
+
+const aiResponse = completion.choices[0].message.content;
+
+if (!aiResponse) {
+    throw new Error("No response from OpenAI");
+}
+console.log("AI Response:", aiResponse);
+
+return {
+    position: aiResponse.match(/Job title: (.*)/)?.[1] || "",
+    company: aiResponse.match(/Company: (.*)/)?.[1] || "",
+    description: (aiResponse.match(/Description:([\s\S]*)/)?.[1] || "").trim(),
+    startDate: aiResponse.match(/Start date: (\d{4}-\d{2}-\d{2})/)?.[1],
+    endDate: aiResponse.match(/End date: (\d{4}-\d{2}-\d{2})/)?.[1],
+} satisfies WorkExperience
 }

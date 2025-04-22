@@ -37,6 +37,8 @@ import { GripHorizontal } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 import { ResumeValues } from "@/lib/validaton";
+import exp from "constants";
+import GenerateWorkExperienceButton from "./GenerateWorkExperienceButton";
 
 export default function WorkExperienceForm({
   resumeData,
@@ -182,6 +184,11 @@ function WorkExperienceItem({
       </div>
       <div className="flex justify-center">
        
+      </div>
+
+      <div className="flex justify-center">
+        <GenerateWorkExperienceButton 
+        onWorkExperienceGenerated={exp => form.setValue(`workExperiences.${index}`, exp)} />
       </div>
       <FormField
         control={form.control}

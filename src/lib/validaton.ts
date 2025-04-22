@@ -95,6 +95,17 @@ export type ResumeValues = Omit<z.infer<typeof resumeSchema>,"photo">&{
     photo?: File | string|null;
 }
 
+export const generateWorkExperienceSchema = z.object({
+    description: z
+    .string()
+    .trim()
+    .min(1, "Required")
+    .min(20, "Must be at least 20 characters long")
+
+});
+
+export type GenerateWorkExperienceInput = z.infer<typeof generateWorkExperienceSchema>;
+
 export const generateSummarySchema = z.object({
     jobTitle: optionalString,
     ...workExperienceSchema.shape,
