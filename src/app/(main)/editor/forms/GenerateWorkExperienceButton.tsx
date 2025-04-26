@@ -64,7 +64,7 @@ function InputDialog({open, onOpenChange, onWorkExperienceGenerated}: InputDialo
                     console.error(error);
                     toast({
                         variant: "destructive",
-                        description: "Something went wrong while generating the summary",
+                        description: "Something went wrong while generating the work experience",
                     })
                 }
         

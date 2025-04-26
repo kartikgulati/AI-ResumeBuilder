@@ -58,10 +58,10 @@ const systemMessage =`
 you are a resume builder AI. Your task is to generate a work experience entry and description based on the user's input.
 your response should include the following structure and format and remove information if they cannot be found in the user's input.
 
-Job Tiitle: [Job Title]
+Position: [Position]
 Company: [Company Name]
-Start Date: [format: YYYY-MM-DD](only if available)
-End Date: [format: YYYY-MM-DD](only if available)
+Start Date: <format: YYYY-MM-DD>(only if available)
+End Date: <format: YYYY-MM-DD>(only if available)
 Description: [Generate an optimized description based on the user's input. The description should be concise and highlight the user's key qualifications and experiences. Make it professional and concise. And it must be in a bullet point format. The description should be 2-3 sentences lond and shoukd be highlight the user's achievements.]
 `
 
@@ -86,10 +86,10 @@ if (!aiResponse) {
 console.log("AI Response:", aiResponse);
 
 return {
-    position: aiResponse.match(/Job title: (.*)/)?.[1] || "",
+    position: aiResponse.match(/Position: (.*)/)?.[1] || "",
     company: aiResponse.match(/Company: (.*)/)?.[1] || "",
     description: (aiResponse.match(/Description:([\s\S]*)/)?.[1] || "").trim(),
-    startDate: aiResponse.match(/Start date: (\d{4}-\d{2}-\d{2})/)?.[1],
-    endDate: aiResponse.match(/End date: (\d{4}-\d{2}-\d{2})/)?.[1],
+    startDate: aiResponse.match(/Start Date: (\d{4}-\d{2}-\d{2})/)?.[1],
+    endDate: aiResponse.match(/End Date: (\d{4}-\d{2}-\d{2})/)?.[1],
 } satisfies WorkExperience
 }
