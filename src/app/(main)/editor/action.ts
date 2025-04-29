@@ -46,54 +46,109 @@ const existingResume = id ? await prisma.resume.findUnique({
         newPhotoUrl = null;
     }
 
-    if(id){
-        return prisma.resume.update({
-            where: {id},
-            data: {
-                ...resumeValues,
-                photoUrl: newPhotoUrl,
-                workExperiences: {
-                    deleteMany:{},
-                    create: workExperiences?.map(exp => ({
-                        ...exp,
-                        startDate: exp.startDate ? new Date(exp.startDate) : null,
-                        endDate: exp.endDate ? new Date(exp.endDate) : null,
-                    })),
-                },
-                educations: {
-                    deleteMany:{},
-                    create: educations?.map(edu => ({
-                        ...edu,
-                        startDate: exp.startDate ? new Date(exp.startDate) : null,
-                        endDate: exp.endDate ? new Date(exp.endDate) : null,
-                    })),
-                },
-                updatedAt: new Date(),
+    function safeDate(dateStr: string | null | undefined) {
+        if (!dateStr) return null;
+        const d = new Date(dateStr);
+        return isNaN(d.getTime()) ? null : d;
+      }
+
+if(id){
+    return prisma.resume.update({
+        where: {id},
+        data: {
+            ...resumeValues,
+            photoUrl: newPhotoUrl,
+            workExperiences: {
+                deleteMany: {},
+                create: workExperiences?.map(exp => ({
+                    ...exp,
+                    startDate: safeDate(exp.startDate),
+                    endDate: safeDate(exp.endDate),
+                })),
+            },
+            educations: {
+                deleteMany: {},
+                create: educations?.map(edu => ({
+                    ...edu,
+                    startDate: safeDate(edu.startDate),
+                    endDate: safeDate(edu.endDate),
+                })),
+            },
+            updatedAt: new Date(),
+        }
+    })
+} else {
+    return prisma.resume.create({
+        data: {
+            ...resumeValues,
+            userId,
+            photoUrl: newPhotoUrl,
+            workExperiences: {
+                create: workExperiences?.map(exp => ({
+                    ...exp,
+                    startDate: safeDate(exp.startDate),
+                    endDate: safeDate(exp.endDate),
+                })),
+            },
+            educations: {
+                create: educations?.map(edu => ({
+                    ...edu,
+                    startDate: safeDate(edu.startDate),
+                    endDate: safeDate(edu.endDate),
+                })),
             }
-        })
-    }else{
-        return prisma.resume.create({
-            data: {
-                ...resumeValues,
-                userId,
-                photoUrl: newPhotoUrl,
-                workExperiences: {
+        }
+    })
+}}
+
+//     if(id){
+//         return prisma.resume.update({
+//             where: {id},
+//             data: {
+//                 ...resumeValues,
+//                 photoUrl: newPhotoUrl,
+//                 workExperiences: {
+//                     deleteMany:{},
+//                     create: workExperiences?.map(exp => ({
+//                         ...exp,
+//                         startDate: exp.startDate ? new Date(exp.startDate) : null,
+//                         endDate: exp.endDate ? new Date(exp.endDate) : null,
+//                     })),
+//                 },
+//                 educations: {
+//                     deleteMany:{},
+//                     create: educations?.map(edu => ({
+//                         ...edu,
+//                         startDate: exp.startDate ? new Date(exp.startDate) : null,
+//                         endDate: exp.endDate ? new Date(exp.endDate) : null,
+//                     })),
+//                 },
+//                 updatedAt: new Date(),
+//             }
+//         })
+//     }else{
+//         return prisma.resume.create({
+//             data: {
+//                 ...resumeValues,
+//                 userId,
+//                 photoUrl: newPhotoUrl,
+//                 workExperiences: {
                     
-                    create: workExperiences?.map(exp => ({
-                        ...exp,
-                        startDate: exp.startDate ? new Date(exp.startDate) : null,
-                        endDate: exp.endDate ? new Date(exp.endDate) : null,
-                    })),
-                },
-                educations: {
-                    create: educations?.map(edu => ({
-                        ...edu,
-                        startDate: exp.startDate ? new Date(exp.startDate) : null,
-                        endDate: exp.endDate ? new Date(exp.endDate) : null,
-                    })),
-                }
-            }
-        })
-    }
-}
+//                     create: workExperiences?.map(exp => ({
+//                         ...exp,
+//                         startDate: exp.startDate ? new Date(exp.startDate) : null,
+//                         endDate: exp.endDate ? new Date(exp.endDate) : null,
+//                     })),
+//                 },
+//                 educations: {
+//                     create: educations?.map(edu => ({
+//                         ...edu,
+//                         startDate: exp.startDate ? new Date(exp.startDate) : null,
+//                         endDate: exp.endDate ? new Date(exp.endDate) : null,
+//                     })),
+//                 }
+//             }
+//         })
+//     }
+// }
         

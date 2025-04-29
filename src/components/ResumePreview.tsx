@@ -5,7 +5,7 @@ import { ResumeValues } from "@/lib/validaton";
 import { Space_Mono } from "next/font/google";
 import { format } from "path";
 import React, { useEffect, useState } from "react";
-import { formatDate } from "date-fns";
+import { formatDate, isValid, parseISO } from "date-fns";
 import exp from "constants";
 import { Badge } from "@/components/ui/badge";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
@@ -132,98 +132,111 @@ function SummarySection({resumeData}: ResumePreviewSectionProps) {
       );
 }
 
-function WorkExperienceSection ({resumeData}: ResumePreviewSectionProps) {
-  
-  const {workExperiences,colorHex} = resumeData
-  if (!workExperiences?.length) return null;
-   
+function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
+  const { workExperiences, colorHex } = resumeData;
 
-   return(
+  const workExperiencesNotEmpty = workExperiences?.filter(
+    (exp) => Object.values(exp).filter(Boolean).length > 0,
+  );
+
+  // function safeDate(dateStr: string | null | undefined) {
+  //   if (!dateStr) return null;
+  //   const d = new Date(dateStr);
+  //   return isNaN(d.getTime()) ? null : d;
+  // }
+
+  if (!workExperiencesNotEmpty?.length) return null;
+
+  return (
     <>
-   <hr className="border-2"
-   style={{
-    borderColor: colorHex
-   
-}}/>
-   <div className="space-y-3 break-inside-avoid">
-    <p className="text-lg font-semibold"
-    style={{
-      color: colorHex
-     
-  }}>Work Experience</p>
-    <div className="space-y-3">
-      {workExperiences.map((experience, index) => (
-        <div key={index} className="break-inside-avoid space-y-1">
-          <div className="flex items-center justify-between text-sm font-semibold ">
-            <span>{experience.position}</span>
-            {experience.startDate && (
-              <span>
-                {formatDate(experience.startDate, "MMMM yyyy")} -{" "}
-                {experience.endDate ? formatDate(experience.endDate, "MMMM yyyy") : "Present"}
-              </span>
-            )}
-
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+        }}
+      />
+      <div className="space-y-3">
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Work experience
+        </p>
+        {workExperiencesNotEmpty.map((exp, index) => {
+          // Parse and validate dates
+          const startDate = exp.startDate ? parseISO(exp.startDate) : null | undefined;
+          const endDate = exp.endDate ? parseISO(exp.endDate) : null | undefined;
+          return (
+            <div key={index} className="break-inside-avoid space-y-1">
+              <div
+                className="flex items-center justify-between text-sm font-semibold"
+                style={{
+                  color: colorHex,
+                }}
+              >
+                <span>{exp.position}</span>
+                {startDate && isValid(startDate) && (
+                  <span>
+                    {formatDate(startDate, "MM/yyyy")} -{" "}
+                    {endDate && isValid(endDate)
+                      ? formatDate(endDate, "MM/yyyy")
+                      : "Present"}
+                  </span>
+                )}
+            </div>
+            <p className="text-xs font-semibold">{exp.company}</p>
+            <div className="whitespace-pre-line text-xs">{exp.description}</div>
           </div>
-          <p className="text-xs font-semibold">{experience.company}</p>
-          <div className="whitespace-pre-line text-xs">
-            {experience.description}  
-          </div>
-        </div>
-      ))}
-    </div>
-
-   </div>
-   </>
-    );
+        );
+      })}
+      </div>
+    </>
+  );
 }
 
 
 function EducationSection({ resumeData }: ResumePreviewSectionProps) {
   const { educations, colorHex } = resumeData;
-    const educationsNotEmpty = educations?.filter(
+  const educationsNotEmpty = educations?.filter(
     (edu) => Object.values(edu).filter(Boolean).length > 0
-  )
+  );
   if (!educationsNotEmpty?.length) return null;
 
-  return(
+  return (
     <>
-   <hr className="border-2" style={{
-                    borderColor: colorHex
-                   
-                }}/>
-   <div className="space-y-3 break-inside-avoid">
-    <p className="text-lg font-semibold" style={{
-                    color: colorHex
-                   
-                }}>Education</p>
-    <div className="space-y-3">
-      {educations?.map((edu, index) => (
-        <div key={index} className="break-inside-avoid space-y-1">
-          <div className="flex items-center justify-between text-sm font-semibold ">
-            <span>{edu.degree}</span>
-            {edu.startDate && (
-              <span>
-                {edu.startDate &&
-                `${formatDate(edu.startDate, "MMMM yyyy")} ${edu.endDate ? ` - ${formatDate(edu.endDate, "MMMM yyyy")}` : ""}`}
-
-
-                
-              </span>
-            )}
-
-          </div>
-          <p className="text-xs font-semibold">{edu.school}</p>
-          
+      <hr className="border-2" style={{ borderColor: colorHex }} />
+      <div className="space-y-3 break-inside-avoid">
+        <p className="text-lg font-semibold" style={{ color: colorHex }}>
+          Education
+        </p>
+        <div className="space-y-3">
+          {educationsNotEmpty.map((edu, index) => {
+            const startDate = edu.startDate ? parseISO(edu.startDate) : null | undefined; ;
+            const endDate = edu.endDate ? parseISO(edu.endDate) : null | undefined;
+            return (
+              <div key={index} className="break-inside-avoid space-y-1">
+                <div className="flex items-center justify-between text-sm font-semibold ">
+                  <span>{edu.degree}</span>
+                  {startDate && isValid(startDate) && (
+                    <span>
+                      {formatDate(startDate, "MMMM yyyy")}
+                      {endDate && isValid(endDate)
+                        ? ` - ${formatDate(endDate, "MMMM yyyy")}`
+                        : ""}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs font-semibold">{edu.school}</p>
+              </div>
+            );
+          })}
         </div>
-      ))}
-    </div>
-
-   </div>
-   </>
-    );
-
+      </div>
+    </>
+  );
 }
-
 function SkillsSection({ resumeData }: ResumePreviewSectionProps) {
   const { skills, colorHex, borderStyle } = resumeData;
   if (!skills?.length) return null;
