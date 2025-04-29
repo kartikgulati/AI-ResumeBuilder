@@ -3,6 +3,8 @@ import { clsx, type ClassValue } from "clsx"
 import exp from "constants";
 import { title } from "process";
 import { twMerge } from "tailwind-merge"
+import { ResumeServerData } from "./types";
+import { ResumeValues } from "./validaton"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -39,8 +41,8 @@ export function mapToResumeValues(data: ResumeServerData):ResumeValues{
       description: exp.description || undefined
     })),
     educations: data.educations?.map(edu => ({
-      degree:edu.position || undefined,
-      school: edu.company || undefined,
+      degree:edu.school || undefined,
+      school: edu.degree || undefined,
       startDate :edu.startDate?.toString().split("T")[0],
       endDate: edu.endDate?.toString().split("T")[0],
       

@@ -132,7 +132,7 @@ function SummarySection({resumeData}: ResumePreviewSectionProps) {
       );
 }
 
-function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
+function WorkExperienceSection({ resumeData }: ResumePreviewSectionProps) {
   const { workExperiences, colorHex } = resumeData;
 
   const workExperiencesNotEmpty = workExperiences?.filter(
