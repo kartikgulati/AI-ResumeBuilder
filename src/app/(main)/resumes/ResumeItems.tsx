@@ -8,18 +8,29 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { formatDate } from "date-fns";
 import Link from "next/link";
 import { format } from "path";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { MoreHorizontal, Copy, Trash, Edit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { deleteResume } from "./actions";
 import { Dialog ,DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import LoadingButton from "@/components/LoadingButton";
+import { useReactToPrint } from "react-to-print";
+import { on } from "events";
 
 interface ResumeItemsProps {
     resume: ResumeServerData
 }
 
 export default function ResumeItems({resume}: ResumeItemsProps) {
+
+    const contentRef = useRef<HTMLDivElement>(null);
+    
+    const reactToPrintFn = useReactToPrint({
+        contentRef,
+        documentTitle: resume.title || "Resume",
+    })
+
+
     const wasUpdated = resume.updatedAt !== resume.createdAt;
     return <div className=" relative group border rounded-lg border-transparent hover:border-border transition-colors bg-secondary p-3">
         <div className="space-y-3">
@@ -40,21 +51,28 @@ export default function ResumeItems({resume}: ResumeItemsProps) {
             <Link 
             className="relative inline-block w-full"
             href={`/editor?resumeId=${resume.id}`}>
+
+
                 <ResumePreview 
                 resumeData={mapToResumeValues(resume)}
+                contentRef={contentRef}
                 className="overflow-hiddenshadow-sm transition-shadow group-hover: shadow-lg" />
             </Link>
         </div>
 
-        <MoreMenu resumeId={resume.id} />
+        <MoreMenu resumeId={resume.id}
+        onPrintClick={reactToPrintFn} />
     </div>
 } 
 
 interface MoreMenuProps {
     resumeId: string;
+    onPrintClick: () => void;
+
+
 }
 
-function MoreMenu({resumeId}: MoreMenuProps) {
+function MoreMenu({resumeId, onPrintClick}: MoreMenuProps) {
     const [showDeleteConformation, setShowDeleteConfirmation] = useState(false);
 
     return <>
@@ -69,9 +87,9 @@ function MoreMenu({resumeId}: MoreMenuProps) {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-60">
-                    <DropdownMenuItem onClick={() => {}}>
+                    <DropdownMenuItem onClick={onPrintClick}>
                         <Edit className="h-4 w-4 mr-2" />
-                        Edit
+                        Print
                     </DropdownMenuItem>
                     <DropdownMenuItem 
                         onClick={() => setShowDeleteConfirmation(true)}
