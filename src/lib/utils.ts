@@ -25,7 +25,7 @@ export function mapToResumeValues(data: ResumeServerData):ResumeValues{
     id: data.id,
     title: data.title || undefined,
     description: data.description || undefined,
-    photo: data.photo || undefined,
+    photo: data.photoUrl || undefined,
     firstName: data.firstName || undefined,
     lastName: data.lastName || undefined,
     jobTitle: data.jobTitle || undefined,
