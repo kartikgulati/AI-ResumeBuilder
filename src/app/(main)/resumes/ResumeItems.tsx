@@ -56,7 +56,7 @@ export default function ResumeItems({resume}: ResumeItemsProps) {
                 <ResumePreview 
                 resumeData={mapToResumeValues(resume)}
                 contentRef={contentRef}
-                className="overflow-hiddenshadow-sm transition-shadow group-hover: shadow-lg" />
+                className="overflow-hidden shadow-sm transition-shadow group-hover: shadow-lg" />
             </Link>
         </div>
 
