@@ -1,4 +1,5 @@
 "use client";
+import {env} from "@/env";
 import { Check } from "lucide-react";
 import { Button } from "../ui/button";
 import {
@@ -82,7 +83,7 @@ export default function PremiumModal() {
               <Button
                 onClick={() =>
                   handlePremiumClick(
-                    process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY!
+                    env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY!
                   )
                 }
                 disabled={loading}
@@ -112,7 +113,7 @@ export default function PremiumModal() {
                 className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
                 onClick={() =>
                   handlePremiumClick(
-                    process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_PRO_MONTHLY!
+                    env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_PRO_MONTHLY!
                   )
                 }
                 disabled={loading}
