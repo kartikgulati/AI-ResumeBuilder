@@ -7,6 +7,9 @@ import {del, put} from "@vercel/blob";
 import exp from "constants";
 import path from "path";
 import { access } from "fs";
+import { sub } from "date-fns";
+import { canCreateResume, canUseCustomization } from "@/lib/permissions";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
 
 export  async function saveResume(values: ResumeValues) {
 const {id } = values;
@@ -21,6 +24,21 @@ if (!userId) {
     throw new Error("User not authenticated");
 }
 
+
+const subscriptionLevel = await getUserSubscriptionLevel(userId);
+if(!id){
+    const resumeCount = await prisma.resume.count({
+        where: {
+            userId
+        }
+    })
+    if(!canCreateResume(subscriptionLevel, resumeCount)){
+        throw new Error("You have reached the maximum number of resumes");
+    }
+}
+
+
+
 const existingResume = id ? await prisma.resume.findUnique({
     where: { id, userId }})
     : null;
@@ -28,6 +46,16 @@ const existingResume = id ? await prisma.resume.findUnique({
     if (id && !existingResume) {
         throw new Error("Resume not found");
     }
+
+
+    const hasCustomizations = (resumeValues.borderStyle && resumeValues.borderStyle !== existingResume?.borderStyle) || (
+        resumeValues.colorHex && resumeValues.colorHex !== existingResume?.colorHex
+    );
+
+    if (hasCustomizations && !canUseCustomization(subscriptionLevel)) {
+        throw new Error("You have reached the maximum number of customizations");
+    }
+
 
     let  newPhotoUrl: string | number | undefined | null = undefined;
     if (photo instanceof File) {
