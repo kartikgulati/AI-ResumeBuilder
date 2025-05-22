@@ -10,19 +10,34 @@ import { useState } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import LoadingButton from "@/components/LoadingButton";
+import { useSubscriptionLevel } from "../../SubscriptionLevelProvider";
+import usePremiumModal from "@/hooks/usePremiumModal";
+import { canUseAiTool } from "@/lib/permissions";
 
 interface GenerateWorkExperienceButtonProps {
 onWorkExperienceGenerated: (workExperience: WorkExperience) => void;
 }
 
 export default function GenerateWorkExperienceButton({onWorkExperienceGenerated}: GenerateWorkExperienceButtonProps) {
+
+     const subscriptionLevel = useSubscriptionLevel();
+
+  const premiumModal = usePremiumModal();
+
+
     const [showInputDialog, setShowInputDialog] = useState(false);
 
     return <>
     <Button
     variant="outline"
     type="button"
-    onClick={() => setShowInputDialog(true)}>
+    onClick={() => {
+        if (!canUseAiTool(subscriptionLevel)) {
+            premiumModal.setOpen(true);
+            return;
+        }
+        
+        setShowInputDialog(true)}}>
 
         <WandSparkles className="size-5" />
         Fill with (AI)

@@ -1,9 +1,25 @@
 "use server"
 
+import { canUseAiTool } from "@/lib/permissions";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { GenerateSummaryInput, GenerateWorkExperienceInput, generateWorkExperienceSchema, WorkExperience } from "@/lib/validaton";
+import { auth } from "@clerk/nextjs/server";
 import openai, { OpenAI } from "openai";
+import { use } from "react";
 
 export async function generateSummary(input: GenerateSummaryInput){
+
+    const {userId} = await auth();
+    if(!userId){
+        throw new Error("User not authenticated");
+    }
+
+    const subscriptionLevel = await getUserSubscriptionLevel(userId);
+    
+    if(!canUseAiTool(subscriptionLevel)){
+        throw new Error("You have to update the subscription for this feature");
+    }
+
 
     const{
         jobTitle,
@@ -53,6 +69,20 @@ return aiResponse;
 
 
 export async function generateWorkExperience (input: GenerateWorkExperienceInput){
+
+ const {userId} = await auth();
+    if(!userId){
+        throw new Error("User not authenticated");
+    }
+
+    const subscriptionLevel = await getUserSubscriptionLevel(userId);
+    
+    if(!canUseAiTool(subscriptionLevel)){
+        throw new Error("You have to update the subscription for this feature");
+    }
+    
+
+
 const {description} = generateWorkExperienceSchema.parse(input);
 const systemMessage =`
 you are a resume builder AI. Your task is to generate a work experience entry and description based on the user's input.
