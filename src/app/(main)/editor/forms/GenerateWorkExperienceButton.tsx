@@ -37,7 +37,7 @@ export default function GenerateWorkExperienceButton({onWorkExperienceGenerated}
             return;
         }
         
-        setShowInputDialog(true)}}>
+        setShowInputDialog(true);}}>
 
         <WandSparkles className="size-5" />
         Fill with (AI)
