@@ -18,14 +18,14 @@ export async function POST(req: NextRequest) {
         const event  = Stripe.webhooks.constructEvent(
             payload,
             signature,
-            env.STRIPE_WEBHOOK_KEY 
+            env.STRIPE_WEBHOOK_SECRET
         )
 
         console.log(`Received event:${event.type}`,event.data.object);
 
         switch(event.type){
             case "checkout.session.completed":
-                await handleSeesionCompleted(event.data.object)
+                await handleSessionCompleted(event.data.object)
                 break;
             
             case "customer.subscription.created":
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     }
 }
 
-    async function handleSeesionCompleted(session: Stripe.Checkout.Session){
+    async function handleSessionCompleted(session: Stripe.Checkout.Session){
 
         const userId = sessionStorage.metadata?.userId;
 
