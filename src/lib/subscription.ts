@@ -6,13 +6,13 @@ export type SubscriptionLevel = "free" | "premium" | "pro";
 export const getUserSubscriptionLevel = cache(
 
     async (userId: string): Promise<SubscriptionLevel> => {
-        const subscription = await prisma.useSubscription.findUnique({
+        const subscription = await prisma.userSubscription.findUnique({
             where: {
                 userId,
             },
         });
 
-        if (!subscription || subscription.stripeCurrentPeriod < new Date()) {
+        if (!subscription || subscription.stripeCurrentPeriodEnd < new Date()) {
             return "free";
         }
         if (subscription.stripePriceId === env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY) {
