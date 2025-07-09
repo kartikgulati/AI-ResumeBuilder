@@ -13,6 +13,7 @@ import openai, { OpenAI } from "openai";
 import { use } from "react";
 
 export async function generateSummary(input: GenerateSummaryInput) {
+  //validate subscription level for the users
   const { userId } = await auth();
   if (!userId) {
     throw new Error("User not authenticated");
@@ -75,6 +76,9 @@ export async function generateSummary(input: GenerateSummaryInput) {
 export async function generateWorkExperience(
   input: GenerateWorkExperienceInput
 ) {
+
+  //validate subscription level for the users
+
   const { userId } = await auth();
   if (!userId) {
     throw new Error("User not authenticated");

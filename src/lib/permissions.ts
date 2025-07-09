@@ -4,9 +4,9 @@ export function canCreateResume(
     subscriptionLevel:SubscriptionLevel,
 currentResumeCount: number,) {
     const maxResumesMap : Record<SubscriptionLevel, number> = {
-        free: 1,
-        premium: 3,
-        pro: Infinity
+        free: 3,
+        premium: 5,
+        pro: Infinity,
     };
     const maxResumes = maxResumesMap[subscriptionLevel];
     return currentResumeCount < maxResumesMap[subscriptionLevel];

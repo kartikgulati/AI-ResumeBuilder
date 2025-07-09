@@ -15,11 +15,28 @@ export async function POST(req: NextRequest) {
       return new Response("Missing Signatures", { status: 400 });
     }
 
-    const event = Stripe.webhooks.constructEvent(
+    const event = stripe.webhooks.constructEvent(
       payload,
       signature,
       env.STRIPE_WEBHOOK_SECRET
     );
+
+
+    //fixing webhook signature verification and event handling 
+
+  //    const body = await req.text();
+
+  // let event: Stripe.Event;
+  // try {
+  //   event = stripe.webhooks.constructEvent(
+  //     body,
+  //     signature,
+  //     env.STRIPE_WEBHOOK_SECRET
+  //   );
+  // } catch (err) {
+  //   console.error("Webhook signature verification failed.", err);
+  //   return new Response("Webhook signature verification failed", { status: 400 });
+  // }
 
     console.log(`Received event:${event.type}`, event.data.object);
 
