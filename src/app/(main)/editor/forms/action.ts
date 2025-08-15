@@ -79,16 +79,16 @@ export async function generateWorkExperience(
 
   //validate subscription level for the users
 
-  const { userId } = await auth();
-  if (!userId) {
-    throw new Error("User not authenticated");
-  }
+  // const { userId } = await auth();
+  // if (!userId) {
+  //   throw new Error("User not authenticated");
+  // }
 
-  const subscriptionLevel = await getUserSubscriptionLevel(userId);
+  // const subscriptionLevel = await getUserSubscriptionLevel(userId);
 
-  if (!canUseAiTool(subscriptionLevel)) {
-    throw new Error("You have to update the subscription for this feature");
-  }
+  // if (!canUseAiTool(subscriptionLevel)) {
+  //   throw new Error("You have to update the subscription for this feature");
+  // }
 
   const { description } = generateWorkExperienceSchema.parse(input);
   const systemMessage = `

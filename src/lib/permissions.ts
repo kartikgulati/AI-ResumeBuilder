@@ -13,7 +13,7 @@ currentResumeCount: number,) {
 }
 
 export function canUseAiTool (subscriptionLevel: SubscriptionLevel) {
-    return subscriptionLevel !== "free";
+    return subscriptionLevel !== "pro";
 }
 
 export function canUseCustomization(subscriptionLevel: SubscriptionLevel) {

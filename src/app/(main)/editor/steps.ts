@@ -6,6 +6,7 @@ import EducationForm from "./forms/EducationForm";
 import SkillsForm from "./forms/SkillsForm";
 import SummaryForma from "./forms/SummaryForm";
 import SummaryForm from "./forms/SummaryForm";
+import PrintForm from "./forms/PrintForm";
 
 export const steps:{
     title: string;
@@ -42,5 +43,10 @@ export const steps:{
         title: "Summary",
         component: SummaryForm,
         key: "summary-info",
+    },
+    {
+        title: "Preview & Print",
+        component: PrintForm,
+        key: "preview-print",
     },
 ];
