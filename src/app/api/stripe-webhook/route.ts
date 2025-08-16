@@ -4,7 +4,7 @@ import { env } from "@/env";
 import { log } from "console";
 import { clerkClient } from "@clerk/nextjs/server";
 import stripe from "@/lib/stripe";
-import prisma from "@/lib/ prisma";
+import prisma from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   try {

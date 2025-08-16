@@ -1,6 +1,6 @@
 import {Metadata} from "next";
 import {auth} from "@clerk/nextjs/server";
-import prisma from "@/lib/ prisma";
+import prisma from "@/lib/prisma";
 import stripe from "@/lib/stripe";
 import Stripe from "stripe";
 import GetSubscriptionButton from "./GetSubscriptionButton";

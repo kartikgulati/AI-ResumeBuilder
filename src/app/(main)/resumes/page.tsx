@@ -1,4 +1,4 @@
-import prisma from "@/lib/ prisma";
+import prisma from "@/lib/prisma";
 import { resumeDataInclude } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";

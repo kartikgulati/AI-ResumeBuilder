@@ -1,6 +1,6 @@
 import { env } from "@/env";
 import { cache } from "react";
-import prisma from "./ prisma";
+import prisma from "./prisma";
 export type SubscriptionLevel = "free" | "premium" | "pro";
 
 export const getUserSubscriptionLevel = cache(
