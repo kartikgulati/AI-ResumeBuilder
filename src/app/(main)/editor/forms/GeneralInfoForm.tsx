@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormLabel, FormControl,FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
+import type { EditorFormProps } from "@/lib/types";
 
 export default function GeneralInfoForm({resumeData, setResumeData}: EditorFormProps) {
   const form = useForm<generalInfoValues>({

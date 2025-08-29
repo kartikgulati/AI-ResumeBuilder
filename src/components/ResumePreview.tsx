@@ -171,8 +171,8 @@ function WorkExperienceSection({ resumeData }: ResumePreviewSectionProps) {
         </p>
         {workExperiencesNotEmpty.map((exp, index) => {
           // Parse and validate dates
-          const startDate = exp.startDate ? parseISO(exp.startDate) : null | undefined;
-          const endDate = exp.endDate ? parseISO(exp.endDate) : null | undefined;
+          const startDate = exp.startDate ? parseISO(exp.startDate) : null;
+          const endDate = exp.endDate ? parseISO(exp.endDate) : null;
           return (
             <div key={index} className="break-inside-avoid space-y-1">
               <div
@@ -218,8 +218,8 @@ function EducationSection({ resumeData }: ResumePreviewSectionProps) {
         </p>
         <div className="space-y-3">
           {educationsNotEmpty.map((edu, index) => {
-            const startDate = edu.startDate ? parseISO(edu.startDate) : null | undefined; ;
-            const endDate = edu.endDate ? parseISO(edu.endDate) : null | undefined;
+            const startDate = edu.startDate ? parseISO(edu.startDate) : null;
+            const endDate = edu.endDate ? parseISO(edu.endDate) : null;
             return (
               <div key={index} className="break-inside-avoid space-y-1">
                 <div className="flex items-center justify-between text-sm font-semibold ">

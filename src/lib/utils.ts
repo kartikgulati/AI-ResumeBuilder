@@ -48,7 +48,7 @@ export function mapToResumeValues(data: ResumeServerData):ResumeValues{
       
     })),
     skills: data.skills,
-    borderStyles: data.borderStyles,
+    borderStyle: data.borderStyle,
     colorHex: data.colorHex,
     summary: data.summary || undefined,
 

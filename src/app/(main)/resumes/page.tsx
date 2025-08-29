@@ -7,7 +7,7 @@ import ResumeItems from "./ResumeItems";
 import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { canCreateResume } from "@/lib/permissions";
 
-export const meta: Metadata = {
+export const metadata: Metadata = {
   title: "Your Resumes",
 };
 export default async function Page() {

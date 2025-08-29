@@ -1,10 +1,8 @@
 import { EditorFormProps } from "@/lib/types";
-import { summarySchema, summaryValues, workExperienceSchema, workExperienceValues } from "@/lib/validaton";
+import { summarySchema, summaryValues } from "@/lib/validaton";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
-import ResumeEditor from "../ResumeEditor";
+import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import exp from "constants";
 import {
   Form,
   FormControl,
@@ -14,19 +12,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { GripHorizontal } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import GenerateSummaryButton from "./GenerateSummaryButton";
-import { Sumana } from "next/font/google";
-import { sign } from "crypto";
 
 export default function SummaryForm({resumeData,setResumeData}: EditorFormProps){
   const form = useForm<summaryValues>({
     resolver: zodResolver(summarySchema),
     defaultValues: {
-      summary: resumeData.workExperiences || [],
+      summary: resumeData.summary || "",
     },
   });
 

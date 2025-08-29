@@ -4,7 +4,7 @@ import { set } from "zod";
 
 
 
-export default function useDimension(containerRef: React.RefObject<HTMLDivElement>){    
+export default function useDimension(containerRef: React.RefObject<HTMLDivElement | null>){    
     const [dimensions, setDemensions] = useState({Width: 0, Height: 0});
 
     useEffect(() => {

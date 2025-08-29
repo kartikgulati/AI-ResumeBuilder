@@ -50,9 +50,10 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: { resumeId?: string };
+  searchParams?: Promise<{ resumeId?: string }>;
 }) {
-  const resumeId = searchParams?.resumeId;
+  const resolvedSearchParams = await searchParams;
+  const resumeId = resolvedSearchParams?.resumeId;
 
   const { userId } = await auth();
 

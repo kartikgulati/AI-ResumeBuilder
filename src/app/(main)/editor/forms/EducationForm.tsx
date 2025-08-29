@@ -133,6 +133,7 @@ export default function EducationForm({resumeData, setResumeData}: EditorFormPro
 }
 
 interface EducationItemProps{
+  id: string;
   form: UseFormReturn<educationValues>;
   index: number;
   remove: (index: number) => void;
