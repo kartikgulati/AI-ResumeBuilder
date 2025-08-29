@@ -47,14 +47,16 @@ export const metadata: Metadata = {
 //   };
 // }
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { resumeId?: string };
+}) {
   const resumeId = searchParams?.resumeId;
 
   const { userId } = await auth();
 
-  if (!userId) {
-    return null;
-  }
+  if (!userId) return null;
 
   const resumeToEdit = resumeId
     ? await prisma.resume.findUnique({
