@@ -4,15 +4,15 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { resumeDataInclude } from "@/lib/types";
 
-interface PageProps {
-  searchParams?: { resumeId?: string };
-}
+// interface PageProps {
+//   searchParams?: { resumeId?: string };
+// }
 
 export const metadata: Metadata = {
   title: "Design your dream resume",
 };
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function Page({ searchParams }: { searchParams?: { resumeId?: string } }) {
   const { resumeId } = searchParams || {};
 
   const { userId } = await auth();
