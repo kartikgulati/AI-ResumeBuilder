@@ -41,11 +41,11 @@ export const metadata: Metadata = {
   title: "Design your dream resume",
 };
 
-interface PageProps {
-  searchParams?: {
-    resumeId?: string;
-  };
-}
+// interface PageProps {
+//   searchParams?: {
+//     resumeId?: string;
+//   };
+// }
 
 export default async function Page({ searchParams }: PageProps) {
   const resumeId = searchParams?.resumeId;
