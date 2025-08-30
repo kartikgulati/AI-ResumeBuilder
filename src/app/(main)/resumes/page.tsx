@@ -41,7 +41,7 @@ export default async function Page() {
         <div className="text-3xl font-bold">
           <h1 className="text-3xl font-bold"> Your Resumes</h1>
           <p className="text-sm text-muted-foreground">
-            {"You've {totalCount} Resumes"}
+            {`You've ${totalCount} Resumes`}
           </p>
         </div>
         <div className="flex flex-col sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-3">
