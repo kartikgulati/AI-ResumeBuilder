@@ -16,13 +16,19 @@ import React from "react";
 import { set } from "date-fns";
 import { createCheckoutSession } from "./actions";
 
+
+const freeFearures = [
+  "Only 3 free Resumes",
+  "No Templates",
+  "Basic features",
+];
 const premiumFeatures = [
-  "Unlimited Resumes",
-  "Unlimited Templates",
+  "5 Premium Resumes",
+  "Only 5 Templates",
+  "Enable special features",
   "Unlimited Work Experience",
   "Unlimited Education",
-  "Unlimited Skills",
-  "Unlimited Projects",
+  "Limited AI functionality",
 ];
 const premiumProFeatures = [
   "Unlimited Resumes",
@@ -31,6 +37,9 @@ const premiumProFeatures = [
   "Unlimited Education",
   "Unlimited Skills",
   "Unlimited Projects",
+  "Full AI functionality",
+  "AI Cover Letter Generation",
+
 ];
 
 export default function PremiumModal() {
@@ -69,6 +78,29 @@ export default function PremiumModal() {
           </DialogDescription>
 
           <div className="flex">
+            <div className="flex w-1/2 flex-col space-y-2">
+              <h3 className="text-center text-lg font-bold">Premium</h3>
+              <ul className="list-inside space-y-2">
+                {freeFearures.map((feature) => (
+                  <li key={feature} className="flex items-center gap-2 ">
+                    <Check className="size-4 text-green-500" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                onClick={() =>
+                  handlePremiumClick(
+                    env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY!
+                  )
+                }
+                disabled={loading}
+              >
+                Upgrade
+              </Button>
+            </div>
+
             <div className="flex w-1/2 flex-col space-y-2">
               <h3 className="text-center text-lg font-bold">Premium</h3>
               <ul className="list-inside space-y-2">
