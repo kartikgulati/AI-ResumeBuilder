@@ -70,7 +70,7 @@ export default function PremiumModal() {
             setOpen(open);
         }
     })}>
-      <DialogContent>
+      <DialogContent className="w-auto">
         <DialogHeader>
           <DialogTitle>Upgrade to Pro</DialogTitle>
           <DialogDescription>
@@ -79,7 +79,7 @@ export default function PremiumModal() {
 
           <div className="flex w-auto max-w-2xl mx-auto my-4 justify-center items-start">
             <div className="flex w-1/3 flex-col space-y-2">
-              <h3 className="text-center text-lg font-bold">Premium</h3>
+              <h3 className="text-center text-lg font-bold">Free</h3>
               <ul className="list-inside space-y-2">
                 {freeFearures.map((feature) => (
                   <li key={feature} className="flex items-center gap-2 ">
