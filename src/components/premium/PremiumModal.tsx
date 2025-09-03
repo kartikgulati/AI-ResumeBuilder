@@ -78,7 +78,7 @@ export default function PremiumModal() {
           </DialogDescription>
 
           <div className="flex">
-            <div className="flex w-1/2 flex-col space-y-2">
+            <div className="flex w-1/3 flex-col space-y-2">
               <h3 className="text-center text-lg font-bold">Premium</h3>
               <ul className="list-inside space-y-2">
                 {freeFearures.map((feature) => (
@@ -100,8 +100,10 @@ export default function PremiumModal() {
                 Upgrade
               </Button>
             </div>
+            
+            <div className="border-l mx-6" />
 
-            <div className="flex w-1/2 flex-col space-y-2">
+            <div className="flex w-1/3 flex-col space-y-2">
               <h3 className="text-center text-lg font-bold">Premium</h3>
               <ul className="list-inside space-y-2">
                 {premiumFeatures.map((feature) => (
@@ -126,7 +128,7 @@ export default function PremiumModal() {
 
             <div className="border-l mx-6" />
 
-            <div className="flex w-1/2 flex-col space-y-2 ">
+            <div className="flex w-1/3 flex-col space-y-2 ">
               <h3 className="text-center text-lg font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 Premium Pro
               </h3>
