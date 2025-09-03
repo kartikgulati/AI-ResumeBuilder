@@ -26,7 +26,7 @@ export default function Navbar() {
           />
 
           <span className="text-2xl font-bold tracking-tight">
-            AI Resume Builder
+            Build AI Resumes
           </span>
         </Link>
         <div className="flex items-center gap-3">

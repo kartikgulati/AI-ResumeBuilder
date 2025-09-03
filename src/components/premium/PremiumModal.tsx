@@ -70,11 +70,11 @@ export default function PremiumModal() {
             setOpen(open);
         }
     })}>
-      <DialogContent className="w-auto">
+      <DialogContent className="w-full max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Upgrade to Pro</DialogTitle>
+          <DialogTitle>Upgrade your Plan</DialogTitle>
           <DialogDescription>
-            Upgrade to Pro to unlock all features.
+            Upgrade to Premium Pro to unlock all AI features.
           </DialogDescription>
 
           <div className="flex w-auto max-w-2xl mx-auto my-4 justify-center items-start">
@@ -89,16 +89,7 @@ export default function PremiumModal() {
                 ))}
               </ul>
 
-              <Button
-                onClick={() =>
-                  handlePremiumClick(
-                    env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY!
-                  )
-                }
-                disabled={loading}
-              >
-                Upgrade
-              </Button>
+              
             </div>
             
             <div className="border-l mx-6" />
@@ -115,6 +106,7 @@ export default function PremiumModal() {
               </ul>
 
               <Button
+              className=" "
                 onClick={() =>
                   handlePremiumClick(
                     env.NEXT_PUBLIC_STRIPE_PRICE_ID_PREMIUM_MONTHLY!
