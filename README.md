@@ -1,37 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Resume Builder
 
-## Getting Started
+<div align="center">
+  <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" alt="Prisma" />
+  <img src="https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=Stripe&logoColor=white" alt="Stripe" />
+</div>
 
-First, run the development server:
+<br />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+AI Resume Builder is a modern, high-performance web application designed to help job seekers create professional, ATS-friendly resumes in minutes. By leveraging the power of AI, users can auto-generate impactful summaries, tailor their work experiences, and visualize their resume in a pristine, live-preview environment.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🤖 **AI-Powered Content Generation:** Leverage OpenAI to auto-write or improve resume summaries, work experiences, and skills.
+- 👀 **Real-time Live Preview:** Instantly see how your resume looks as you build it with dynamic scaling and modern UI components.
+- 🎨 **Extensive Customization:** Choose from various color palettes, border styles, and structures to match your personal brand.
+- 🔒 **Secure Authentication:** Integrated with Clerk for seamless, robust, and secure user logic.
+- 💳 **Premium Subscriptions:** Stripe integration to offer premium features such as advanced AI generation or premium layouts.
+- ☁️ **Cloud Storage:** Vercel Blob is used to effortlessly store user profile photos and related assets.
+- 🏗️ **Drag and Drop Workflow:** Integrated with `@dnd-kit/core` for intuitive content ordering.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+This project is built using a modern, scalable stack:
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router, React 19)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [Radix UI](https://www.radix-ui.com/)
+- **State Management:** [Zustand](https://zustand-demo.pmnd.rs/) & React Hook Form
+- **Form Validation:** [Zod](https://zod.dev/)
+- **Database ORM:** [Prisma](https://www.prisma.io/)
+- **Authentication:** [Clerk](https://clerk.com/)
+- **Payments & Pricing:** [Stripe](https://stripe.com/)
+- **AI Integration:** [OpenAI API](https://openai.com/)
+- **File Storage:** [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 Authentication
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+User authentication and session management are powered by **Clerk**. Clerk provides a drop-in UI and secure APIs for signing up, logging in, and managing user profiles. The app protects private routes (like the resume editor and billing pages) ensuring that user data remains strictly confidential and tied to their authenticated account.
 
-## Deploy on Vercel
+## 💰 Pricing & Monetization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This platform includes premium capabilities monetized via **Stripe**. 
+- **Free Tier:** Users can build and start structuring a standard resume.
+- **Premium Tier (Pro Status):** Users can subscribe or pay-per-use to unlock advanced AI generation capabilities, bypass restrictions, and access premium stylization features. Stripe webhooks keep the Prisma database in perfect sync with users' subscription status.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# AI-ResumeBuilder
+## 🚀 Getting Started
+
+### Prerequisites
+Make sure you have Node.js and npm/yarn/pnpm installed. You also need to set up environment variables for Clerk, Prisma (Database URL), Stripe, OpenAI, and Vercel Blob.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/ai-resume-builder.git
+   cd ai-resume-builder
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Configure Environment Variables:
+   Create a `.env` file in the root directory and add the necessary secret keys (Clerk, Stripe, Prisma DB, OpenAI, Vercel Blob).
+
+4. Apply Database Migrations:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application running.
